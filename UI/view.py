@@ -5,6 +5,15 @@ class View(ft.UserControl):
     def __init__(self, page: ft.Page):
         super().__init__()
         # page stuff
+        self.ddMethodValue = None
+        self.txt_result = None
+        self._btnOptPath = None
+        self._txtInS = None
+        self.btnTopProducts = None
+        self.ddMethod = None
+        self.btnCreateGraph = None
+        self.ddYear = None
+        self.ddYearValue = None
         self._page = page
         self._page.title = "TdP 2025 Flights Manager"
         self._page.horizontal_alignment = 'CENTER'
@@ -17,11 +26,11 @@ class View(ft.UserControl):
 
     def load_interface(self):
         # title
-        self._title = ft.Text("Welcome to the TdP Flights Manager ", color="blue", size=24)
+        self._title = ft.Text("esame ", color="blue", size=24)
         self._page.controls.append(self._title)
 
         #ROW1
-        self.ddYear = ft.Dropdown(label="Select a year")
+        self.ddYear = ft.Dropdown(label="Select a year", on_change = self.on_dd_Year_change)
         self.btnCreateGraph = ft.ElevatedButton(text="Create Graph")
 
         row1 = ft.Row([
@@ -33,7 +42,7 @@ class View(ft.UserControl):
 
 
         #ROW2
-        self.ddMethod = ft.Dropdown(label="Method")
+        self.ddMethod = ft.Dropdown(label="Method", on_change = self.on_dd_Method_change)
         self.btnTopProducts = ft.ElevatedButton(text="Find Top Products")
 
         row2 = ft.Row([
@@ -55,6 +64,7 @@ class View(ft.UserControl):
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(self.txt_result)
+        self._controller.fillDD()
         self._page.update()
 
     @property
@@ -73,6 +83,14 @@ class View(ft.UserControl):
         self._page.dialog = dlg
         dlg.open = True
         self._page.update()
+
+    def on_dd_Year_change(self, e):
+        self.ddYearValue = self.ddYear.value
+        self.update_page()
+
+    def on_dd_Method_change(self, e):
+        self.ddMethodValue = self.ddMethod.value
+        self.update_page()
 
     def update_page(self):
         self._page.update()
