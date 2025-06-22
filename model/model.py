@@ -1,9 +1,12 @@
+import copy
+
 from database.DAO import DAO
 import networkx as nx
 
 
 class Model:
     def __init__(self):
+        self.optPath = None
         self.DAO = DAO()
         self.graph = None
 
@@ -21,61 +24,41 @@ class Model:
                     self.graph.add_edge(node1, node2)
 
 
-    def getMaxPath(self):
-        self.maxPath = []
-        self.maxPathWeight = 0
+    def getOptPath(self):
+        self.optPath = []
         graph = self.graph
 
         for node in graph.nodes:
-            self.recursion(
-                source=node,
-                partial=[node],
-                partialWeight=0,
-                weightPrec = None
+            print("Il nodo esaminato non ha archi entranti\n")
+            if graph.in_degree(node) == 0:
+                self.recursion(
+                    source=node,
+                    partial=[node],
             )
             print("\nENTRATO\n")
-        print(self.maxPath)
-        print(self.maxPathWeight)
+        print(self.optPath)
         print("\nFINE\n")
 
-        return self.maxPath, self.maxPathWeight
+        return self.optPath
 
-    def recursion(self, source, partial, partialWeight, weightPrec):
+    def recursion(self, source, partial):
         graph = self.graph
 
-        if len(partial) > len(self.maxPath):
-            print("\n---------------------------------")
-            print(len(partial))
-            print(partialWeight)
-            self.maxPathWeight = partialWeight
-            self.maxPath = copy.deepcopy(partial)  # copia della lista
-        elif len(partial) == len(self.maxPath):
-            if partialWeight < self.maxPathWeight:
+        if graph.out_degree(source) == 0:
+            print("Il nodo esaminato non ha archi uscenti\n")
+            if len(partial) > len(self.optPath):
                 print("\n---------------------------------")
-                print(len(partial))
-                print(partialWeight)
-                self.maxPathWeight = partialWeight
-                self.maxPath = copy.deepcopy(partial)
+                print(f"La lunghezza massima ora è {len(partial)}")
+                self.optPath = copy.deepcopy(partial)  # copia della lista
 
-        for source, successor, data in graph.out_edges(source, data=True):
+        for source, successor in graph.out_edges(source):
             if successor not in partial:
                 print("successore non in parziale")
-                if successor.Essential != source.Essential:
-                    print("successore ha valore di essential diverso da source")
-                    weight = graph.get_edge_data(source, successor).get('weight', 0)
-                    print("weight: ", weight)
-                    if weightPrec is None:
-                        partial.append(successor)
-                        self.recursion(successor, partial, partialWeight + weight, weight)
-                        print("NUOVA RICORSIONE\n")
-                        partial.pop()
+                partial.append(successor)
+                self.recursion(successor, partial)
+                print("NUOVA RICORSIONE\n")
+                partial.pop()
 
-                    else:
-                        if weight >= weightPrec:
-                            partial.append(successor)
-                            self.recursion(successor, partial, partialWeight + weight, weight)
-                            print("NUOVA RICORSIONE\n")
-                            partial.pop()
 
 
 

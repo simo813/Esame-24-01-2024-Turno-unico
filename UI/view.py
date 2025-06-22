@@ -53,7 +53,7 @@ class View(ft.UserControl):
 
         #ROW3
         self._txtInS = ft.TextField(label="Insert s")
-        self._btnOptPath = ft.ElevatedButton(text="Find path")
+        self._btnOptPath = ft.ElevatedButton(text="Find path", on_click = self._controller.handle_optPath)
 
         row3 = ft.Row([
             ft.Container(self._txtInS, width=250),
