@@ -31,7 +31,7 @@ class View(ft.UserControl):
 
         #ROW1
         self.ddYear = ft.Dropdown(label="Select a year", on_change = self.on_dd_Year_change)
-        self.btnCreateGraph = ft.ElevatedButton(text="Create Graph")
+        self.btnCreateGraph = ft.ElevatedButton(text="Create Graph", on_click = self._controller.handle_graph)
 
         row1 = ft.Row([
             ft.Container(None, width=250),
@@ -43,7 +43,7 @@ class View(ft.UserControl):
 
         #ROW2
         self.ddMethod = ft.Dropdown(label="Method", on_change = self.on_dd_Method_change)
-        self.btnTopProducts = ft.ElevatedButton(text="Find Top Products")
+        self.btnTopProducts = ft.ElevatedButton(text="Find Top Products", on_click = self._controller.handle_topProducts)
 
         row2 = ft.Row([
             ft.Container(None, width=250),

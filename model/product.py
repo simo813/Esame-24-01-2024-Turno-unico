@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 class Product:
     code: int
-    annualRevenue: int
+    annualRevenue: float
 
     def __eq__(self, other):
         return self.code == other.code
