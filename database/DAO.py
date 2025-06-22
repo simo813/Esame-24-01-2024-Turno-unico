@@ -1,6 +1,6 @@
 from database.DB_connect import DBConnect
 
-class DAO():
+class DAO:
 
     @staticmethod
     def getAllAirports():

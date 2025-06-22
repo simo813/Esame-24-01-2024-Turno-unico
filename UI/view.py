@@ -21,37 +21,34 @@ class View(ft.UserControl):
         self._page.controls.append(self._title)
 
         #ROW1
-        self._txtInCMin = ft.TextField(label= "N Compagnie min")
-        self._btnAnalizza = ft.ElevatedButton(text="Analizza Aeroporti"
-                                              )
+        self.ddYear = ft.Dropdown(label="Select a year")
+        self.btnCreateGraph = ft.ElevatedButton(text="Create Graph")
+
         row1 = ft.Row([
             ft.Container(None, width=250),
-            ft.Container(self._txtInCMin, width=250),
-            ft.Container(self._btnAnalizza, width=250)
+            ft.Container(self.ddYear, width=250),
+            ft.Container(self.btnCreateGraph, width=250)
         ], alignment=ft.MainAxisAlignment.CENTER)
 
+
+
         #ROW2
-        self._ddAeroportoP = ft.Dropdown(label="Aeroporto di Partenza")
-        self._btnConnessi = ft.ElevatedButton(text="Aeroporti connessi"
-                                              )
+        self.ddMethod = ft.Dropdown(label="Method")
+        self.btnTopProducts = ft.ElevatedButton(text="Find Top Products")
+
         row2 = ft.Row([
             ft.Container(None, width=250),
-            ft.Container(self._ddAeroportoP, width=250),
-            ft.Container(self._btnConnessi, width=250)
+            ft.Container(self.ddMethod, width=250),
+            ft.Container(self.btnTopProducts, width=250)
         ], alignment=ft.MainAxisAlignment.CENTER)
 
         #ROW3
-        self._ddAeroportoD = ft.Dropdown(label="Aeroporto di Destinazione")
-        self._txtInTratteMax = ft.TextField(label = "N Tratte max")
-        self._btnPercorso = ft.ElevatedButton(text="Trova percorso"
-                                           )
-        self._btnCerca = ft.ElevatedButton(text="Cerca itinerario")
+        self._txtInS = ft.TextField(label="Insert s")
+        self._btnOptPath = ft.ElevatedButton(text="Find path")
 
         row3 = ft.Row([
-            ft.Container(self._ddAeroportoD, width=250),
-            ft.Container(self._txtInTratteMax, width=250),
-            ft.Container(self._btnPercorso, width=250),
-            ft.Container(self._btnCerca, width=250)
+            ft.Container(self._txtInS, width=250),
+            ft.Container(self._btnOptPath, width=250),
         ], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.add(row1, row2, row3)
